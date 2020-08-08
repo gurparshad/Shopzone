@@ -1,0 +1,136 @@
+html{
+    font-size: 62.5%; /* 16px X 62.5 = 10px (default size is 16px)*/
+    box-sizing: border-box;
+}
+body{
+    font: 1.6rem Helvetica;
+    height: 100vh;
+    margin: 0;
+}
+.grid-container{
+    display: grid;
+    grid-template-areas:
+    "header"
+    "main"
+    "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 5rem 1fr 5rem;
+    height: 100%;
+}
+.header{
+    grid-area: header;
+    background-color: #203040;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+.brand a{
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 0.3rem;
+    border: 0.2rem #ffffff solid;
+    border-radius: 0.7rem;
+}
+.header-links a{
+    color: #ffffff;
+    font-size: 2.0rem;
+    text-decoration: none;
+    padding-right: 1rem;
+}
+.header-links a:hover{
+    color: #ff8000;
+}
+.main{
+    grid-area: main;
+}
+.footer{
+    grid-area: footer;
+    background-color: #203040;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* home screen */
+a{
+    text-decoration: none;
+}
+a:hover{
+    color: #ff8000;
+}
+
+.products{
+    list-style-type: none;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-wrap: wrap; 
+    /* if we dont use flex wrap then the products will go out of the screen and we have to scroll */
+}
+
+.product{
+    margin: 2.5rem;
+    display: flex;
+    border-bottom: 0.1rem #c0c0c0 solid;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 45rem;
+}
+.product-image{
+    max-width: 30rem;
+    max-height: 30rem;
+}
+.product-name{
+    font-size: 2.0rem;
+    font-weight: bold;
+}
+.product-brand{
+    font-size: 1.2rem;
+}
+.product-price{
+    font-size: bold;
+    font-size: 2.0rem;
+} 
+.product-ratings{
+    margin-bottom: 0.2rem;
+}
+
+/* sidebar */
+
+.brand button{
+    font-size: 3rem;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.sidebar{
+    position:fixed;
+    transform: translateX(-30rem);
+    width: 30rem;
+    background-color: #f0f0f0;
+    height: 100%;
+}
+.categories-list{
+    list-style-type: none;
+}
+.sidebar.open{
+    transform: translateX(0);
+}
+.sidebar-close-btn{
+    border-radius: 50%;
+    border: .1rem #000000 solid;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    cursor: pointer;
+    position: absolute;
+    right: .5rem;
+    top: 1.5rem;
+}
