@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { listProducts } from '../actions/productActions';
 
-function HomeScreen(props){
-
-    const [products, setProducts] = useState([]); // default value is empty array.
+function HomeScreen(){
+    
+    const productList = useSelector(state => state.productList)
+    const { products, loading, error } = productList;
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchData = async () => {
-            const {data} = await axios.get("/api/products"); // destructured data
-            console.log(data);
-            setProducts(data);
-        }
-        fetchData();
-    }, [])  // [] means this hook will run on "componentdidmount";
+        dispatch(listProducts());
+    }, [])  // [] means this hook will run when component will be made;
 
-    return <ul className="products">
+    return loading ? <div>Loading ...</div> :
+        error ? <div>{error}</div> :
+    <ul className="products">
     {
         products.map(function(item){
             console.log(item);
