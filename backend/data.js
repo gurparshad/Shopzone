@@ -8,7 +8,8 @@
             price: 60,
             brand: 'Nike',
             rating: 4.5,
-            numReviews: 10
+            numReviews: 10,
+            countInStock: 0,
         },
         {
             _id: '2',
@@ -18,7 +19,8 @@
             price: 60,
             brand: 'Nike',
             rating: 4.5,
-            numReviews: 10
+            numReviews: 10,
+            countInStock: 8,
         },
         {
             _id: '3',
@@ -28,7 +30,8 @@
             price: 60,
             brand: 'Nike',
             rating: 4.5,
-            numReviews: 10
+            numReviews: 10,
+            countInStock: 1,
         },
         {
             _id: '4',
@@ -38,7 +41,8 @@
             price: 60,
             brand: 'Nike',
             rating: 4.5,
-            numReviews: 10
+            numReviews: 10,
+            countInStock: 2,
         },
         {
             _id: '5',
@@ -48,7 +52,8 @@
             price: 60,
             brand: 'Nike',
             rating: 4.5,
-            numReviews: 10
+            numReviews: 10,
+            countInStock: 3,
         }
 
 ]

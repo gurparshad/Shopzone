@@ -1,38 +1,67 @@
-import React from 'react';
-import data from '../data';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { detailsProduct } from '../actions/productActions';
+
+// array constructor is used   // 
+//  for information visit the link
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Array
+
 
 function ProductScreen(props){
-    console.log(props.match.params.id);
-    const product = data.products.find(x => x._id === props.match.params.id)
-    console.log(data.products);
-    console.log(product);
-    console.log(product.image);
+    const [qty, setQty] = useState(1);
+    const productDetails = useSelector(state => state.productDetails);
+    console.log('<<<<');
+    console.log(productDetails);
+    console.log('>>>>');
+    // console.log(productDetails.products);
+    const { products, loading, error } = productDetails;
+    console.log('product details');
+    console.log(products);
+    if(products){
+        console.log(products.brand);
+        console.log('new array');
+        // console.log(...Array(products.countInStock).keys());
+    }
+        
+    // console.log(`product name ${products.name}`);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(detailsProduct(props.match.params.id));
+    }, []) // [] means this hook will run after rendering the data.
+
+    const handleAddToCart = () => {
+        // method to direct the user to another url.
+        props.history.push("/cart/" + props.match.params.id + "?qty=" + qty);
+    }
+
     return (
     <div>
 
         <div className="ResultsLink">
         <Link to="/">{"<< Go back to results"}</Link>
         </div>
-        <div className="details">
+        { loading ? <div>Loading...</div> : 
+        products ? <div className="details">
         <div className="details-image">
-            <img src={product.image} alt="product"/>
+            <img src={products.image} alt="product"/>
         </div>
         <div className="details-info">
             <ul>
                 <li> 
-                    <h4>{product.name}</h4>
+                    <h4>{products.name}</h4>
                 </li>
                 <li>
-                    {product.rating} Stars ({product.numReviews} Reviews)
+                    {products.rating} Stars ({products.numReviews} Reviews)
                 </li>
                 <li>
-                Price: <b>$ {product.price}</b>
+                Price: <b>$ {products.price}</b>
                 </li>
                 <li>
                     Description:
                     <div>
-                        {product.description}
+                        {products.description}
                     </div>
                 </li>
             </ul>
@@ -41,27 +70,27 @@ function ProductScreen(props){
         <div className="details-action">
             <ul>
                 <li>
-                    Price: {product.price}
+                    Price: {products.price}
                 </li>
                 <li>
-                    Status: {product.status}
+                    Status: {products.countInStock > 0 ? "Available" : "Out of stock" }
                 </li>
                 <li>
-                    Qty: <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
+                {/* array constructor used */}
+                    Qty: <select value={qty} onChange={(e) => { setQty(e.target.value) }}>
+                            {[...Array(products.countInStock).keys()].map(x => 
+                            <option value={x+1}>{x+1}</option>)
+                            }
                     </select>
                 </li>
-                <li>
-                    <button className="button">Add to Cart</button>
+                <li> {products.countInStock > 0 ? <button onClick = {handleAddToCart} className="button">Add to Cart</button> :
+                <div></div> }
+                    
                 </li>
             </ul>
         </div>
-        </div>
-
-        
+        </div> : "error"
+         }
         
     </div>
     )
